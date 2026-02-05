@@ -277,6 +277,43 @@ function initializeEventListeners() {
 
   // Add to cart button
   document.getElementById("addToCart").addEventListener("click", addToCart);
+
+  // Single Corners Listener
+  document.querySelectorAll('input[name="singleCorners"]').forEach(radio => {
+    radio.addEventListener("change", toggleSingleCornerOptions);
+  });
+
+  // Initialize state
+  toggleSingleCornerOptions();
+}
+
+// Toggle Single Corner Options
+function toggleSingleCornerOptions() {
+  const corners = document.querySelector('input[name="singleCorners"]:checked')?.value;
+  const container = document.getElementById("singleCornerSizeContainer");
+  const radiusDisplay = document.getElementById("singleRadiusSizeDisplay");
+  const clippedDisplay = document.getElementById("singleClippedSizeDisplay");
+  const radiusSelect = document.getElementById("singleRadiusSize");
+  const clippedSelect = document.getElementById("singleClippedSize");
+
+  if (!container) return;
+
+  // Reset display
+  container.classList.add("hidden");
+  radiusDisplay.classList.add("hidden");
+  clippedDisplay.classList.add("hidden");
+
+  if (corners === "radius") {
+    container.classList.remove("hidden");
+    radiusDisplay.classList.remove("hidden");
+  } else if (corners === "clipped") {
+    container.classList.remove("hidden");
+    clippedDisplay.classList.remove("hidden");
+  } else {
+    // clear selection when hidden to ensure cleaner data
+    if (radiusSelect) radiusSelect.value = "";
+    if (clippedSelect) clippedSelect.value = "";
+  }
 }
 
 // Update area calculation
@@ -507,6 +544,18 @@ function validateForm() {
     if (!shapeDetails || shapeDetails.classList.contains("hidden")) {
       showError("singleShapeError", "Please select and configure a shape");
       isValid = false;
+    }
+
+    // Corner validation
+    const corners = document.querySelector('input[name="singleCorners"]:checked');
+    if (corners) {
+      if (corners.value === 'radius' && !document.getElementById('singleRadiusSize').value) {
+        showError('singleCornerSizeError', 'Please select radius size');
+        isValid = false;
+      } else if (corners.value === 'clipped' && !document.getElementById('singleClippedSize').value) {
+        showError('singleCornerSizeError', 'Please select clipped size');
+        isValid = false;
+      }
     }
   } else if (currentTab === "double") {
     // Glass validation
@@ -872,6 +921,14 @@ function collectFormData() {
     item.details.push(
       `Corners: ${corners.charAt(0).toUpperCase() + corners.slice(1)}`
     );
+
+    if (corners === "radius") {
+      const rSize = document.getElementById("singleRadiusSize").value;
+      if (rSize) item.details.push(`Radius Size: ${rSize}`);
+    } else if (corners === "clipped") {
+      const cSize = document.getElementById("singleClippedSize").value;
+      if (cSize) item.details.push(`Clipped Size: ${cSize}`);
+    }
 
     const holes = document.querySelector('input[name="singleHoles"]:checked');
     if (holes) {

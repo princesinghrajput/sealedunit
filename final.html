@@ -728,6 +728,41 @@
                                     </div>
                                 </label>
                             </div>
+                            <!-- Corner Size Selection (Radius/Clipped) -->
+                            <div id="singleCornerSizeContainer"
+                                class="mt-4 hidden p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                <div id="singleRadiusSizeDisplay" class="hidden">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Radius
+                                        Size</label>
+                                    <select id="singleRadiusSize" class="input-field w-full">
+                                        <option value="">Select Radius Size</option>
+                                        <option value="10mm">10mm</option>
+                                        <option value="15mm">15mm</option>
+                                        <option value="20mm">20mm</option>
+                                        <option value="25mm">25mm</option>
+                                        <option value="30mm">30mm</option>
+                                        <option value="35mm">35mm</option>
+                                        <option value="40mm">40mm</option>
+                                        <option value="45mm">45mm</option>
+                                    </select>
+                                </div>
+                                <div id="singleClippedSizeDisplay" class="hidden">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Clipped
+                                        Size</label>
+                                    <select id="singleClippedSize" class="input-field w-full">
+                                        <option value="">Select Clipped Size</option>
+                                        <option value="15mm">15mm</option>
+                                        <option value="20mm">20mm</option>
+                                        <option value="25mm">25mm</option>
+                                        <option value="30mm">30mm</option>
+                                        <option value="35mm">35mm</option>
+                                        <option value="40mm">40mm</option>
+                                        <option value="45mm">45mm</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="singleCornerSizeError" class="error-message hidden text-red-500 text-sm mt-1">
+                                Please select corner size</div>
                         </div>
 
                         <!-- Holes -->
