@@ -1786,10 +1786,26 @@ function switchPaintedColourTab(tabName) {
 
   // For custom tab, handle input
   if (tabName === "custom") {
-    document.getElementById("customColourInput").addEventListener("input", function () {
-      selectedSingleColour = "custom:" + this.value;
+    const customInput = document.getElementById("customColourInput");
+    const customPreview = document.getElementById("customColourPreviewBox");
+
+    // Use oninput to prevent stacking listeners and handle preview
+    customInput.oninput = function () {
+      const val = this.value.trim();
+      selectedSingleColour = "custom:" + val;
+
+      if (customPreview) {
+        if (val) {
+          customPreview.style.backgroundColor = val;
+          // If the color is invalid, the browser will ignore the assignment, 
+          // but we can't easily detect that without more logic. 
+          // For now, this is sufficient for a preview.
+        } else {
+          customPreview.style.backgroundColor = '#f3f4f6'; // Match bg-gray-100
+        }
+      }
       updateConfirmButtonState();
-    });
+    };
   }
 }
 
