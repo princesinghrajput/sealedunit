@@ -1583,85 +1583,45 @@ let selectedPaintedColourType = 'stock';
 
 // Stock colours data
 const stockColours = [
-  { value: "white", name: "White", color: "#FFFFFF" },
-  { value: "cream", name: "Cream", color: "#FFFDD0" },
-  { value: "ivory", name: "Ivory", color: "#FFFFF0" },
-  { value: "champagne", name: "Champagne", color: "#F7E7CE" },
-  { value: "silver", name: "Silver", color: "#C0C0C0" },
-  { value: "light-grey", name: "Light Grey", color: "#D3D3D3" },
-  { value: "grey", name: "Grey", color: "#808080" },
-  { value: "charcoal", name: "Charcoal", color: "#36454F" },
-  { value: "black", name: "Black", color: "#000000" },
-  { value: "navy", name: "Navy", color: "#000080" },
-  { value: "royal-blue", name: "Royal Blue", color: "#4169E1" },
-  { value: "sky-blue", name: "Sky Blue", color: "#87CEEB" },
-  { value: "teal", name: "Teal", color: "#008080" },
-  { value: "forest-green", name: "Forest Green", color: "#228B22" },
-  { value: "olive", name: "Olive", color: "#808000" },
-  { value: "lime", name: "Lime", color: "#32CD32" },
-  { value: "yellow", name: "Yellow", color: "#FFFF00" },
-  { value: "gold", name: "Gold", color: "#FFD700" },
-  { value: "orange", name: "Orange", color: "#FFA500" },
-  { value: "coral", name: "Coral", color: "#FF7F50" },
-  { value: "red", name: "Red", color: "#FF0000" },
-  { value: "burgundy", name: "Burgundy", color: "#800020" },
-  { value: "pink", name: "Pink", color: "#FFC0CB" },
-  { value: "purple", name: "Purple", color: "#800080" }
+  { value: "amber", name: "Amber", color: "#C88A3D" },
+  { value: "light-cream", name: "Light Cream", color: "#E6E1C6" },
+  { value: "sand", name: "Sand", color: "#D6C07A" },
+  { value: "brown", name: "Brown", color: "#9C7A5A" },
+  { value: "bright-yellow", name: "Bright Yellow", color: "#FFD23A" },
+  { value: "golden-yellow", name: "Golden Yellow", color: "#F2B705" },
+  { value: "soft-pink", name: "Soft Pink", color: "#F3B6C6" },
+  { value: "red-orange", name: "Red Orange", color: "#E84C2A" },
+  { value: "bright-red", name: "Bright Red", color: "#E53935" },
+  { value: "dark-red", name: "Dark Red", color: "#A51E2D" }
 ];
 
 const cfteColours = [
-  { value: "cfte-1", name: "Flamingo", color: "#FC8EAC" },
-  { value: "cfte-2", name: "Raspberry", color: "#E30B5D" },
-  { value: "cfte-3", name: "Ruby", color: "#E0115F" },
-  { value: "cfte-4", name: "Cherry", color: "#DE3163" },
-  { value: "cfte-5", name: "Mahogany", color: "#C04000" },
-  { value: "cfte-6", name: "Terracotta", color: "#E2725B" },
-  { value: "cfte-7", name: "Peach", color: "#FFCBA4" },
-  { value: "cfte-8", name: "Apricot", color: "#FBCEB1" },
-  { value: "cfte-9", name: "Tangerine", color: "#FF9966" },
-  { value: "cfte-10", name: "Amber", color: "#FFBF00" },
-  { value: "cfte-11", name: "Lemon", color: "#FFF44F" },
-  { value: "cfte-12", name: "Canary", color: "#FFEF00" },
-  { value: "cfte-13", name: "Lime", color: "#BFFF00" },
-  { value: "cfte-14", name: "Mint", color: "#98FF98" },
-  { value: "cfte-15", name: "Sage", color: "#9DC183" },
-  { value: "cfte-16", name: "Jade", color: "#00A86B" },
-  { value: "cfte-17", name: "Turquoise", color: "#40E0D0" },
-  { value: "cfte-18", name: "Aqua", color: "#00FFFF" },
-  { value: "cfte-19", name: "Azure", color: "#007FFF" },
-  { value: "cfte-20", name: "Cobalt", color: "#0047AB" },
-  { value: "cfte-21", name: "Indigo", color: "#4B0082" },
-  { value: "cfte-22", name: "Violet", color: "#8F00FF" },
-  { value: "cfte-23", name: "Plum", color: "#DDA0DD" },
-  { value: "cfte-24", name: "Lavender", color: "#E6E6FA" }
+  { value: "dark-teal", name: "Dark Teal", color: "#1F3A3A" },
+  { value: "teal-blue", name: "Teal Blue", color: "#4F8F8B" },
+  { value: "light-mint", name: "Light Mint", color: "#C9E3B4" },
+  { value: "olive-grey", name: "Olive Grey", color: "#9AA37C" },
+  { value: "dark-olive", name: "Dark Olive", color: "#2F3B1F" },
+  { value: "forest-green", name: "Forest Green", color: "#1F2F1A" },
+  { value: "lime-green", name: "Lime Green", color: "#B9D948" },
+  { value: "apple-green", name: "Apple Green", color: "#9ACD32" },
+  { value: "fresh-green", name: "Fresh Green", color: "#6FBF3A" },
+  { value: "pale-green", name: "Pale Green", color: "#C9CFA5" }
 ];
 
 const ralColours = [
-  { value: "ral-9010", name: "RAL 9010", color: "#F7F5E8" },
-  { value: "ral-9016", name: "RAL 9016", color: "#F7FBF5" },
-  { value: "ral-9001", name: "RAL 9001", color: "#FFFCEB" },
-  { value: "ral-7016", name: "RAL 7016", color: "#383E42" },
-  { value: "ral-7015", name: "RAL 7015", color: "#4C5158" },
-  { value: "ral-7012", name: "RAL 7012", color: "#575D5E" },
-  { value: "ral-7011", name: "RAL 7011", color: "#555D61" },
-  { value: "ral-7005", name: "RAL 7005", color: "#6C6E6B" },
-  { value: "ral-7001", name: "RAL 7001", color: "#8F9695" },
-  { value: "ral-7035", name: "RAL 7035", color: "#C0C5C1" },
-  { value: "ral-7040", name: "RAL 7040", color: "#989EA1" },
-  { value: "ral-9005", name: "RAL 9005", color: "#0A0A0D" },
-  { value: "ral-5011", name: "RAL 5011", color: "#1A2B3C" },
-  { value: "ral-5024", name: "RAL 5024", color: "#5B7F95" },
-  { value: "ral-5014", name: "RAL 5014", color: "#637D96" },
-  { value: "ral-6005", name: "RAL 6005", color: "#114232" },
-  { value: "ral-6009", name: "RAL 6009", color: "#26392F" },
-  { value: "ral-6012", name: "RAL 6012", color: "#2F3D3B" },
-  { value: "ral-3000", name: "RAL 3000", color: "#A72920" },
-  { value: "ral-3003", name: "RAL 3003", color: "#8D1D2C" },
-  { value: "ral-3004", name: "RAL 3004", color: "#70161E" },
-  { value: "ral-8014", name: "RAL 8014", color: "#49392D" },
-  { value: "ral-8017", name: "RAL 8017", color: "#442F29" },
-  { value: "ral-8019", name: "RAL 8019", color: "#3D3635" }
+  { value: "ivory", name: "Ivory", color: "#FFF7D6" },
+  { value: "light-yellow", name: "Light Yellow", color: "#FFF1B3" },
+  { value: "apricot", name: "Apricot", color: "#F7C27A" },
+  { value: "peach", name: "Peach", color: "#F4B183" },
+  { value: "beige", name: "Beige", color: "#C6A57A" },
+  { value: "brown-beige", name: "Brown Beige", color: "#9B7B4A" },
+  { value: "orange", name: "Orange", color: "#F4A032" },
+  { value: "light-pink", name: "Light Pink", color: "#F6C1CC" },
+  { value: "coral-red", name: "Coral Red", color: "#E24B4B" },
+  { value: "orange-red", name: "Orange Red", color: "#F05A28" }
 ];
+
+
 
 // Open Single Glass Configuration Modal
 function openSingleGlassConfigModal() {
@@ -1737,7 +1697,7 @@ function populateColourGrid(containerId, colours) {
       <input type="radio" name="modalPaintColour" value="${colour.value}" class="sr-only">
       <div class="colour-swatch w-20 h-20 rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all flex flex-col items-center justify-center p-1" 
            style="background-color: ${colour.color};">
-        <span class="text-xs font-medium text-center leading-tight" style="color: ${textColour}; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">${colour.value.toUpperCase()}</span>
+
         <span class="text-xs text-center leading-tight mt-0.5" style="color: ${textColour}; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">${colour.name}</span>
       </div>
     `;
