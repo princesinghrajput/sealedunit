@@ -1,5 +1,16 @@
 // Global variables
 let currentTab = "single";
+// Auto-detect current tab based on URL
+if (typeof window !== 'undefined') {
+  const path = window.location.pathname.toLowerCase();
+  if (path.includes("doubleglazed")) {
+    currentTab = "double";
+  } else if (path.includes("tripleglazed")) {
+    currentTab = "triple";
+  } else {
+    currentTab = "single";
+  }
+}
 let cart = [];
 let currentPrice = 0;
 let currentShapeTarget = "";
@@ -168,14 +179,18 @@ function initializeShapeModalListeners() {
 
 // Tab functionality
 function initializeTabs() {
-  const tabButtons = document.querySelectorAll(".tab-btn");
+  console.log("Tabs initialized - Page specific mode");
+  // Tab switching is now handled by direct links (<a> tags)
+  // This function is kept to prevent errors if it's called elsewhere
 
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const tabId = this.id.replace("Tab", "");
-      switchTab(tabId);
-    });
-  });
+  // Highlight the current tab based on currentTab variable (redundant if HTML is set correct, but good for safety)
+  if (currentTab) {
+    const activeBtn = document.getElementById(currentTab + 'Tab');
+    if (activeBtn) activeBtn.classList.add('tab-active');
+
+    const content = document.getElementById(currentTab === 'single' ? 'singleUnit' : (currentTab === 'double' ? 'doubleGlazed' : 'tripleGlazed'));
+    if (content) content.classList.remove('hidden');
+  }
 }
 
 function switchTab(tabId) {
