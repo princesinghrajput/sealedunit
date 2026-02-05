@@ -893,6 +893,11 @@ function collectFormData() {
     ).value;
     item.details.push(`Glass: ${thickness} ${glassType}`);
 
+    // Tuckbox Extras
+    document.querySelectorAll('input[name="singleTuckboxExtras"]:checked').forEach(checkbox => {
+      item.details.push(`Extra: ${checkbox.value}`);
+    });
+
     if (glassType === "tinted") {
       const tint = document.querySelector(
         'input[name="singleTintColor"]:checked'
