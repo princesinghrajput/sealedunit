@@ -1495,7 +1495,322 @@ function selectPatternOption() {
   closePatternModal();
 }
 
-// Shape data
+// =========================================
+// Single Glass Configuration Modal Functions
+// =========================================
+
+let selectedSingleGlassType = null;
+let selectedSingleThickness = null;
+let selectedSingleColour = null;
+let selectedPaintedColourType = 'stock';
+
+// Stock colours data
+const stockColours = [
+  { value: "white", name: "White", color: "#FFFFFF" },
+  { value: "cream", name: "Cream", color: "#FFFDD0" },
+  { value: "ivory", name: "Ivory", color: "#FFFFF0" },
+  { value: "champagne", name: "Champagne", color: "#F7E7CE" },
+  { value: "silver", name: "Silver", color: "#C0C0C0" },
+  { value: "light-grey", name: "Light Grey", color: "#D3D3D3" },
+  { value: "grey", name: "Grey", color: "#808080" },
+  { value: "charcoal", name: "Charcoal", color: "#36454F" },
+  { value: "black", name: "Black", color: "#000000" },
+  { value: "navy", name: "Navy", color: "#000080" },
+  { value: "royal-blue", name: "Royal Blue", color: "#4169E1" },
+  { value: "sky-blue", name: "Sky Blue", color: "#87CEEB" },
+  { value: "teal", name: "Teal", color: "#008080" },
+  { value: "forest-green", name: "Forest Green", color: "#228B22" },
+  { value: "olive", name: "Olive", color: "#808000" },
+  { value: "lime", name: "Lime", color: "#32CD32" },
+  { value: "yellow", name: "Yellow", color: "#FFFF00" },
+  { value: "gold", name: "Gold", color: "#FFD700" },
+  { value: "orange", name: "Orange", color: "#FFA500" },
+  { value: "coral", name: "Coral", color: "#FF7F50" },
+  { value: "red", name: "Red", color: "#FF0000" },
+  { value: "burgundy", name: "Burgundy", color: "#800020" },
+  { value: "pink", name: "Pink", color: "#FFC0CB" },
+  { value: "purple", name: "Purple", color: "#800080" }
+];
+
+const cfteColours = [
+  { value: "cfte-1", name: "Flamingo", color: "#FC8EAC" },
+  { value: "cfte-2", name: "Raspberry", color: "#E30B5D" },
+  { value: "cfte-3", name: "Ruby", color: "#E0115F" },
+  { value: "cfte-4", name: "Cherry", color: "#DE3163" },
+  { value: "cfte-5", name: "Mahogany", color: "#C04000" },
+  { value: "cfte-6", name: "Terracotta", color: "#E2725B" },
+  { value: "cfte-7", name: "Peach", color: "#FFCBA4" },
+  { value: "cfte-8", name: "Apricot", color: "#FBCEB1" },
+  { value: "cfte-9", name: "Tangerine", color: "#FF9966" },
+  { value: "cfte-10", name: "Amber", color: "#FFBF00" },
+  { value: "cfte-11", name: "Lemon", color: "#FFF44F" },
+  { value: "cfte-12", name: "Canary", color: "#FFEF00" },
+  { value: "cfte-13", name: "Lime", color: "#BFFF00" },
+  { value: "cfte-14", name: "Mint", color: "#98FF98" },
+  { value: "cfte-15", name: "Sage", color: "#9DC183" },
+  { value: "cfte-16", name: "Jade", color: "#00A86B" },
+  { value: "cfte-17", name: "Turquoise", color: "#40E0D0" },
+  { value: "cfte-18", name: "Aqua", color: "#00FFFF" },
+  { value: "cfte-19", name: "Azure", color: "#007FFF" },
+  { value: "cfte-20", name: "Cobalt", color: "#0047AB" },
+  { value: "cfte-21", name: "Indigo", color: "#4B0082" },
+  { value: "cfte-22", name: "Violet", color: "#8F00FF" },
+  { value: "cfte-23", name: "Plum", color: "#DDA0DD" },
+  { value: "cfte-24", name: "Lavender", color: "#E6E6FA" }
+];
+
+const ralColours = [
+  { value: "ral-9010", name: "RAL 9010", color: "#F7F5E8" },
+  { value: "ral-9016", name: "RAL 9016", color: "#F7FBF5" },
+  { value: "ral-9001", name: "RAL 9001", color: "#FFFCEB" },
+  { value: "ral-7016", name: "RAL 7016", color: "#383E42" },
+  { value: "ral-7015", name: "RAL 7015", color: "#4C5158" },
+  { value: "ral-7012", name: "RAL 7012", color: "#575D5E" },
+  { value: "ral-7011", name: "RAL 7011", color: "#555D61" },
+  { value: "ral-7005", name: "RAL 7005", color: "#6C6E6B" },
+  { value: "ral-7001", name: "RAL 7001", color: "#8F9695" },
+  { value: "ral-7035", name: "RAL 7035", color: "#C0C5C1" },
+  { value: "ral-7040", name: "RAL 7040", color: "#989EA1" },
+  { value: "ral-9005", name: "RAL 9005", color: "#0A0A0D" },
+  { value: "ral-5011", name: "RAL 5011", color: "#1A2B3C" },
+  { value: "ral-5024", name: "RAL 5024", color: "#5B7F95" },
+  { value: "ral-5014", name: "RAL 5014", color: "#637D96" },
+  { value: "ral-6005", name: "RAL 6005", color: "#114232" },
+  { value: "ral-6009", name: "RAL 6009", color: "#26392F" },
+  { value: "ral-6012", name: "RAL 6012", color: "#2F3D3B" },
+  { value: "ral-3000", name: "RAL 3000", color: "#A72920" },
+  { value: "ral-3003", name: "RAL 3003", color: "#8D1D2C" },
+  { value: "ral-3004", name: "RAL 3004", color: "#70161E" },
+  { value: "ral-8014", name: "RAL 8014", color: "#49392D" },
+  { value: "ral-8017", name: "RAL 8017", color: "#442F29" },
+  { value: "ral-8019", name: "RAL 8019", color: "#3D3635" }
+];
+
+// Open Single Glass Configuration Modal
+function openSingleGlassConfigModal() {
+  const glassTypeSelect = document.getElementById("singleGlassTypeSelect");
+  const glassType = glassTypeSelect.value;
+
+  if (!glassType) return; // Do nothing if no type selected
+
+  selectedSingleGlassType = glassType;
+  selectedSingleThickness = null;
+  selectedSingleColour = null;
+
+  // Update modal title with glass type
+  const typeNames = {
+    clear: "Clear Glass",
+    "low-iron": "Low Iron Glass",
+    satin: "Satin Glass",
+    tinted: "Tinted Glass",
+    black: "Black Glass",
+    painted: "Painted Glass"
+  };
+  document.getElementById("glassConfigModalTitle").textContent = typeNames[glassType] || "Glass Configuration";
+
+  // Reset thickness selection
+  document.querySelectorAll('input[name="modalThickness"]').forEach(radio => {
+    radio.checked = false;
+    radio.closest("label").querySelector(".thickness-option").classList.remove("border-blue-500", "bg-blue-50");
+  });
+
+  // Show/hide colour sections based on glass type
+  document.getElementById("tintedColourSection").classList.toggle("hidden", glassType !== "tinted");
+  document.getElementById("paintedColourSection").classList.toggle("hidden", glassType !== "painted");
+
+  // Reset tint colour selection
+  document.querySelectorAll('input[name="modalTintColour"]').forEach(radio => {
+    radio.checked = false;
+    radio.closest("label").querySelector(".tint-option").classList.remove("border-blue-500", "bg-blue-50");
+  });
+
+  // Populate painted colour grids if painted
+  if (glassType === "painted") {
+    populateColourGrid("stockColoursGrid", stockColours);
+    populateColourGrid("cfteColoursGrid", cfteColours);
+    populateColourGrid("ralColoursGrid", ralColours);
+    switchPaintedColourTab("stock");
+  }
+
+  // Reset button state
+  document.getElementById("confirmGlassConfigBtn").disabled = true;
+
+  // Show modal
+  document.getElementById("glassConfigModal").classList.remove("hidden");
+
+  // Add event listeners for thickness selection
+  setupThicknessListeners();
+  setupTintColourListeners();
+}
+
+// Populate colour grid
+function populateColourGrid(containerId, colours) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  colours.forEach(colour => {
+    const swatch = document.createElement("label");
+    swatch.className = "cursor-pointer";
+    swatch.innerHTML = `
+      <input type="radio" name="modalPaintColour" value="${colour.value}" class="sr-only">
+      <div class="colour-swatch w-10 h-10 rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all flex items-center justify-center" 
+           style="background-color: ${colour.color};" 
+           title="${colour.name}">
+      </div>
+    `;
+
+    swatch.querySelector("input").addEventListener("change", function () {
+      // Remove selection from all
+      document.querySelectorAll(".colour-swatch").forEach(s => {
+        s.classList.remove("border-blue-500", "ring-2", "ring-blue-300");
+      });
+      // Add selection
+      swatch.querySelector(".colour-swatch").classList.add("border-blue-500", "ring-2", "ring-blue-300");
+      selectedSingleColour = colour.value;
+      updateConfirmButtonState();
+    });
+
+    container.appendChild(swatch);
+  });
+}
+
+// Setup thickness selection listeners
+function setupThicknessListeners() {
+  document.querySelectorAll('input[name="modalThickness"]').forEach(radio => {
+    radio.addEventListener("change", function () {
+      // Remove selection from all
+      document.querySelectorAll(".thickness-option").forEach(opt => {
+        opt.classList.remove("border-blue-500", "bg-blue-50");
+      });
+      // Add selection
+      this.closest("label").querySelector(".thickness-option").classList.add("border-blue-500", "bg-blue-50");
+      selectedSingleThickness = this.value;
+      updateConfirmButtonState();
+    });
+  });
+}
+
+// Setup tint colour listeners
+function setupTintColourListeners() {
+  document.querySelectorAll('input[name="modalTintColour"]').forEach(radio => {
+    radio.addEventListener("change", function () {
+      // Remove selection from all
+      document.querySelectorAll(".tint-option").forEach(opt => {
+        opt.classList.remove("border-blue-500", "bg-blue-50");
+      });
+      // Add selection
+      this.closest("label").querySelector(".tint-option").classList.add("border-blue-500", "bg-blue-50");
+      selectedSingleColour = this.value;
+      updateConfirmButtonState();
+    });
+  });
+}
+
+// Switch painted colour tab
+function switchPaintedColourTab(tabName) {
+  selectedPaintedColourType = tabName;
+
+  // Update tab button styles
+  document.querySelectorAll(".painted-tab").forEach(tab => {
+    tab.classList.remove("bg-blue-600", "text-white");
+    tab.classList.add("bg-gray-200", "text-gray-700");
+  });
+
+  const activeTab = document.getElementById("tab" + tabName.charAt(0).toUpperCase() + tabName.slice(1));
+  if (activeTab) {
+    activeTab.classList.remove("bg-gray-200", "text-gray-700");
+    activeTab.classList.add("bg-blue-600", "text-white");
+  }
+
+  // Show/hide tab content
+  document.querySelectorAll(".paint-tab-content").forEach(content => {
+    content.classList.add("hidden");
+  });
+
+  const contentId = tabName + "ColoursContainer";
+  const content = document.getElementById(contentId);
+  if (content) content.classList.remove("hidden");
+
+  // For custom tab, handle input
+  if (tabName === "custom") {
+    document.getElementById("customColourInput").addEventListener("input", function () {
+      selectedSingleColour = "custom:" + this.value;
+      updateConfirmButtonState();
+    });
+  }
+}
+
+// Update confirm button state
+function updateConfirmButtonState() {
+  const btn = document.getElementById("confirmGlassConfigBtn");
+
+  // Thickness is always required
+  if (!selectedSingleThickness) {
+    btn.disabled = true;
+    return;
+  }
+
+  // For tinted/painted, also need colour
+  if (selectedSingleGlassType === "tinted" || selectedSingleGlassType === "painted") {
+    if (!selectedSingleColour) {
+      btn.disabled = true;
+      return;
+    }
+  }
+
+  btn.disabled = false;
+}
+
+// Close Glass Config Modal
+function closeGlassConfigModal() {
+  document.getElementById("glassConfigModal").classList.add("hidden");
+}
+
+// Confirm Glass Configuration
+function confirmGlassConfiguration() {
+  if (!selectedSingleThickness) return;
+
+  // Update hidden inputs
+  document.getElementById("singleGlassThickness").value = selectedSingleThickness;
+  document.getElementById("singleGlassType").value = selectedSingleGlassType;
+
+  const colourInput = document.getElementById("singleGlassColour");
+  if (colourInput) colourInput.value = selectedSingleColour || "";
+
+  // Update display
+  const configDisplay = document.getElementById("singleGlassConfigDisplay");
+  configDisplay.classList.remove("hidden");
+
+  const typeNames = {
+    clear: "Clear",
+    "low-iron": "Low Iron",
+    satin: "Satin",
+    tinted: "Tinted",
+    black: "Black",
+    painted: "Painted"
+  };
+
+  let summaryText = `${selectedSingleThickness} ${typeNames[selectedSingleGlassType]} Glass`;
+  let detailsText = "";
+
+  if (selectedSingleGlassType === "tinted") {
+    const tintName = selectedSingleColour === "grey" ? "Grey" : "Bronze";
+    detailsText = `Tint: ${tintName}`;
+  } else if (selectedSingleGlassType === "painted") {
+    if (selectedSingleColour && selectedSingleColour.startsWith("custom:")) {
+      detailsText = `Custom colour: ${selectedSingleColour.replace("custom:", "")}`;
+    } else {
+      detailsText = `Colour: ${selectedSingleColour || "Selected"}`;
+    }
+  }
+
+  document.getElementById("singleConfigSummary").textContent = summaryText;
+  document.getElementById("singleConfigDetails").textContent = detailsText;
+
+  closeGlassConfigModal();
+}
+
+
 const shapes = [
   // Replace these example URLs with your real image paths.
   // Each shape provides a 0°, 90°, 180° and 270° image. 0° is the main image.
