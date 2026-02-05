@@ -330,15 +330,40 @@
                         <!-- Glass Configuration Display (shows selected thickness, colour, etc.) -->
                         <div id="singleGlassConfigDisplay" class="mb-6 hidden">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Selected Configuration</label>
-                            <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-                                <div class="flex-1">
-                                    <p id="singleConfigSummary" class="font-medium text-gray-800">Not configured</p>
-                                    <p id="singleConfigDetails" class="text-sm text-gray-500"></p>
+                            <div class="p-4 bg-gradient-to-r from-blue-50 to-gray-50 rounded-xl border border-blue-100">
+                                <div class="flex items-start gap-4">
+                                    <!-- Thickness Image -->
+                                    <div class="flex-shrink-0">
+                                        <div
+                                            class="w-20 h-20 rounded-lg border-2 border-blue-200 bg-white p-1 shadow-sm">
+                                            <img id="singleConfigThicknessImg" src="" alt="Thickness"
+                                                class="w-full h-full object-contain rounded">
+                                        </div>
+                                        <p class="text-xs text-center text-gray-500 mt-1">Thickness</p>
+                                    </div>
+                                    <!-- Colour Image (only for tinted/painted) -->
+                                    <div id="singleConfigColourImgContainer" class="flex-shrink-0 hidden">
+                                        <div
+                                            class="w-20 h-20 rounded-lg border-2 border-blue-200 bg-white p-1 shadow-sm overflow-hidden">
+                                            <img id="singleConfigColourImg" src="" alt="Colour"
+                                                class="w-full h-full object-cover rounded">
+                                            <div id="singleConfigColourSwatch" class="w-full h-full rounded hidden">
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-center text-gray-500 mt-1">Colour</p>
+                                    </div>
+                                    <!-- Text Summary -->
+                                    <div class="flex-1 pt-2">
+                                        <p id="singleConfigSummary" class="font-semibold text-gray-800 text-lg">Not
+                                            configured</p>
+                                        <p id="singleConfigDetails" class="text-sm text-gray-600 mt-1"></p>
+                                    </div>
+                                    <!-- Change Button -->
+                                    <button type="button" onclick="openSingleGlassConfigModal()"
+                                        class="flex-shrink-0 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                                        Change
+                                    </button>
                                 </div>
-                                <button type="button" onclick="openSingleGlassConfigModal()"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                                    Change Configuration
-                                </button>
                             </div>
                             <input type="hidden" id="singleGlassThickness" name="singleGlassThickness">
                             <input type="hidden" id="singleGlassColour" name="singleGlassColour">
@@ -368,37 +393,41 @@
                                         <label class="cursor-pointer">
                                             <input type="radio" name="modalThickness" value="4mm" class="sr-only">
                                             <div
-                                                class="thickness-option border-2 border-gray-200 rounded-lg p-4 text-center hover:border-blue-400 transition-all">
-                                                <div class="text-4xl font-bold text-blue-600 mb-1">4</div>
-                                                <div class="text-sm text-gray-600">mm</div>
-                                                <p class="text-xs text-gray-500 mt-1">4mm thickness</p>
+                                                class="thickness-option border-2 border-gray-200 rounded-lg p-2 text-center hover:border-blue-400 transition-all bg-white">
+                                                <img src="views/4mm.png" alt="4mm"
+                                                    class="w-full h-20 object-contain mb-1">
+                                                <p class="text-sm font-medium text-gray-700">4mm</p>
+                                                <p class="text-xs text-blue-500">4mm thickness</p>
                                             </div>
                                         </label>
                                         <label class="cursor-pointer">
                                             <input type="radio" name="modalThickness" value="6mm" class="sr-only">
                                             <div
-                                                class="thickness-option border-2 border-gray-200 rounded-lg p-4 text-center hover:border-blue-400 transition-all">
-                                                <div class="text-4xl font-bold text-blue-600 mb-1">6</div>
-                                                <div class="text-sm text-gray-600">mm</div>
-                                                <p class="text-xs text-gray-500 mt-1">6mm thickness</p>
+                                                class="thickness-option border-2 border-gray-200 rounded-lg p-2 text-center hover:border-blue-400 transition-all bg-white">
+                                                <img src="views/6mm.png" alt="6mm"
+                                                    class="w-full h-20 object-contain mb-1">
+                                                <p class="text-sm font-medium text-gray-700">6mm</p>
+                                                <p class="text-xs text-blue-500">6mm thickness</p>
                                             </div>
                                         </label>
                                         <label class="cursor-pointer">
                                             <input type="radio" name="modalThickness" value="8mm" class="sr-only">
                                             <div
-                                                class="thickness-option border-2 border-gray-200 rounded-lg p-4 text-center hover:border-blue-400 transition-all">
-                                                <div class="text-4xl font-bold text-blue-600 mb-1">8</div>
-                                                <div class="text-sm text-gray-600">mm</div>
-                                                <p class="text-xs text-gray-500 mt-1">8mm thickness</p>
+                                                class="thickness-option border-2 border-gray-200 rounded-lg p-2 text-center hover:border-blue-400 transition-all bg-white">
+                                                <img src="views/8mm.png" alt="8mm"
+                                                    class="w-full h-20 object-contain mb-1">
+                                                <p class="text-sm font-medium text-gray-700">8mm</p>
+                                                <p class="text-xs text-blue-500">8mm thickness</p>
                                             </div>
                                         </label>
                                         <label class="cursor-pointer">
                                             <input type="radio" name="modalThickness" value="10mm" class="sr-only">
                                             <div
-                                                class="thickness-option border-2 border-gray-200 rounded-lg p-4 text-center hover:border-blue-400 transition-all">
-                                                <div class="text-4xl font-bold text-blue-600 mb-1">10</div>
-                                                <div class="text-sm text-gray-600">mm</div>
-                                                <p class="text-xs text-gray-500 mt-1">10mm thickness</p>
+                                                class="thickness-option border-2 border-gray-200 rounded-lg p-2 text-center hover:border-blue-400 transition-all bg-white">
+                                                <img src="views/10mm.png" alt="10mm"
+                                                    class="w-full h-20 object-contain mb-1">
+                                                <p class="text-sm font-medium text-gray-700">10mm</p>
+                                                <p class="text-xs text-blue-500">10mm thickness</p>
                                             </div>
                                         </label>
                                     </div>
@@ -412,33 +441,21 @@
                                         <label class="cursor-pointer">
                                             <input type="radio" name="modalTintColour" value="grey" class="sr-only">
                                             <div
-                                                class="tint-option border-2 border-gray-200 rounded-lg p-4 hover:border-blue-400 transition-all flex items-center gap-4">
-                                                <div
-                                                    class="w-16 h-16 rounded-lg bg-gray-500 flex items-center justify-center">
-                                                    <img src="/views/grey-tint.jpg" alt="Grey"
-                                                        class="w-full h-full object-cover rounded-lg"
-                                                        onerror="this.style.display='none'">
-                                                </div>
-                                                <div>
-                                                    <p class="font-medium text-gray-800">Grey</p>
-                                                    <p class="text-sm text-gray-500">Grey tinted glass</p>
-                                                </div>
+                                                class="tint-option border-2 border-gray-200 rounded-lg p-3 hover:border-blue-400 transition-all text-center bg-white">
+                                                <img src="views/tint-grey.jpg" alt="Grey"
+                                                    class="w-full h-24 object-cover rounded-lg mb-2">
+                                                <p class="font-medium text-gray-800">Grey</p>
+                                                <p class="text-sm text-gray-500">Grey tinted glass</p>
                                             </div>
                                         </label>
                                         <label class="cursor-pointer">
                                             <input type="radio" name="modalTintColour" value="bronze" class="sr-only">
                                             <div
-                                                class="tint-option border-2 border-gray-200 rounded-lg p-4 hover:border-blue-400 transition-all flex items-center gap-4">
-                                                <div
-                                                    class="w-16 h-16 rounded-lg bg-amber-700 flex items-center justify-center">
-                                                    <img src="/views/bronze-tint.jpg" alt="Bronze"
-                                                        class="w-full h-full object-cover rounded-lg"
-                                                        onerror="this.style.display='none'">
-                                                </div>
-                                                <div>
-                                                    <p class="font-medium text-gray-800">Bronze</p>
-                                                    <p class="text-sm text-gray-500">Bronze tinted glass</p>
-                                                </div>
+                                                class="tint-option border-2 border-gray-200 rounded-lg p-3 hover:border-blue-400 transition-all text-center bg-white">
+                                                <img src="views/tint-bronze.jpg" alt="Bronze"
+                                                    class="w-full h-24 object-cover rounded-lg mb-2">
+                                                <p class="font-medium text-gray-800">Bronze</p>
+                                                <p class="text-sm text-gray-500">Bronze tinted glass</p>
                                             </div>
                                         </label>
                                     </div>
@@ -466,7 +483,7 @@
 
                                     <!-- Stock Colours Grid -->
                                     <div id="stockColoursContainer" class="paint-tab-content">
-                                        <div class="grid grid-cols-6 gap-2 max-h-64 overflow-y-auto"
+                                        <div class="grid grid-cols-4 gap-3 max-h-72 overflow-y-auto p-1"
                                             id="stockColoursGrid">
                                             <!-- Stock colours populated by JS -->
                                         </div>
@@ -475,7 +492,7 @@
 
                                     <!-- CFTE Colours Grid -->
                                     <div id="cfteColoursContainer" class="paint-tab-content hidden">
-                                        <div class="grid grid-cols-6 gap-2 max-h-64 overflow-y-auto"
+                                        <div class="grid grid-cols-4 gap-3 max-h-72 overflow-y-auto p-1"
                                             id="cfteColoursGrid">
                                             <!-- CFTE colours populated by JS -->
                                         </div>
@@ -484,7 +501,7 @@
 
                                     <!-- RAL Colours Grid -->
                                     <div id="ralColoursContainer" class="paint-tab-content hidden">
-                                        <div class="grid grid-cols-6 gap-2 max-h-64 overflow-y-auto"
+                                        <div class="grid grid-cols-4 gap-3 max-h-72 overflow-y-auto p-1"
                                             id="ralColoursGrid">
                                             <!-- RAL colours populated by JS -->
                                         </div>

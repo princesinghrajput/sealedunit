@@ -1643,7 +1643,7 @@ function openSingleGlassConfigModal() {
   setupTintColourListeners();
 }
 
-// Populate colour grid
+// Populate colour grid with labelled swatches like the screenshot
 function populateColourGrid(containerId, colours) {
   const container = document.getElementById(containerId);
   container.innerHTML = "";
@@ -1651,11 +1651,17 @@ function populateColourGrid(containerId, colours) {
   colours.forEach(colour => {
     const swatch = document.createElement("label");
     swatch.className = "cursor-pointer";
+
+    // Calculate if text should be dark or light based on background
+    const isLightColour = isLight(colour.color);
+    const textColour = isLightColour ? "#333333" : "#FFFFFF";
+
     swatch.innerHTML = `
       <input type="radio" name="modalPaintColour" value="${colour.value}" class="sr-only">
-      <div class="colour-swatch w-10 h-10 rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all flex items-center justify-center" 
-           style="background-color: ${colour.color};" 
-           title="${colour.name}">
+      <div class="colour-swatch w-20 h-20 rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all flex flex-col items-center justify-center p-1" 
+           style="background-color: ${colour.color};">
+        <span class="text-xs font-medium text-center leading-tight" style="color: ${textColour}; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">${colour.value.toUpperCase()}</span>
+        <span class="text-xs text-center leading-tight mt-0.5" style="color: ${textColour}; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">${colour.name}</span>
       </div>
     `;
 
@@ -1672,6 +1678,16 @@ function populateColourGrid(containerId, colours) {
 
     container.appendChild(swatch);
   });
+}
+
+// Helper function to determine if a colour is light or dark
+function isLight(hexColor) {
+  const hex = hexColor.replace('#', '');
+  const r = parseInt(hex.substr(0, 2), 16);
+  const g = parseInt(hex.substr(2, 2), 16);
+  const b = parseInt(hex.substr(4, 2), 16);
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness > 155;
 }
 
 // Setup thickness selection listeners
@@ -1790,18 +1806,54 @@ function confirmGlassConfiguration() {
     painted: "Painted"
   };
 
+  // Set thickness image
+  const thicknessImg = document.getElementById("singleConfigThicknessImg");
+  const thicknessValue = selectedSingleThickness.replace("mm", "");
+  thicknessImg.src = `views/${thicknessValue}mm.png`;
+  thicknessImg.alt = selectedSingleThickness;
+
+  // Handle colour image/swatch
+  const colourImgContainer = document.getElementById("singleConfigColourImgContainer");
+  const colourImg = document.getElementById("singleConfigColourImg");
+  const colourSwatch = document.getElementById("singleConfigColourSwatch");
+
   let summaryText = `${selectedSingleThickness} ${typeNames[selectedSingleGlassType]} Glass`;
   let detailsText = "";
 
   if (selectedSingleGlassType === "tinted") {
+    // Show tint image
+    colourImgContainer.classList.remove("hidden");
+    colourImg.classList.remove("hidden");
+    colourSwatch.classList.add("hidden");
+
     const tintName = selectedSingleColour === "grey" ? "Grey" : "Bronze";
+    colourImg.src = `views/tint-${selectedSingleColour}.jpg`;
+    colourImg.alt = tintName;
     detailsText = `Tint: ${tintName}`;
   } else if (selectedSingleGlassType === "painted") {
+    // Show colour swatch
+    colourImgContainer.classList.remove("hidden");
+    colourImg.classList.add("hidden");
+    colourSwatch.classList.remove("hidden");
+
     if (selectedSingleColour && selectedSingleColour.startsWith("custom:")) {
       detailsText = `Custom colour: ${selectedSingleColour.replace("custom:", "")}`;
+      colourSwatch.style.backgroundColor = "#cccccc";
     } else {
-      detailsText = `Colour: ${selectedSingleColour || "Selected"}`;
+      // Find the colour in our arrays
+      const allColours = [...stockColours, ...cfteColours, ...ralColours];
+      const foundColour = allColours.find(c => c.value === selectedSingleColour);
+      if (foundColour) {
+        colourSwatch.style.backgroundColor = foundColour.color;
+        detailsText = `Colour: ${foundColour.name}`;
+      } else {
+        detailsText = `Colour: ${selectedSingleColour || "Selected"}`;
+        colourSwatch.style.backgroundColor = "#cccccc";
+      }
     }
+  } else {
+    // No colour selection for clear, low-iron, satin, black
+    colourImgContainer.classList.add("hidden");
   }
 
   document.getElementById("singleConfigSummary").textContent = summaryText;
