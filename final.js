@@ -124,10 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeEventListeners();
   initializeShapeModalListeners();
   calculatePrice();
-  return isValid;
-  const chargeableArea = Math.max(area, 0.3);
-
-  return chargeableArea * totalGlassPricePerSqm;
 });
 
 function initializeShapeModalListeners() {
@@ -1286,11 +1282,14 @@ function showSuccessPopup() {
 
 
 // When glass thickness is selected, open the glass type modal
-document.getElementById("singleGlassThickness").addEventListener("change", function () {
-  if (this.value) {
-    openGlassTypeModal(this.value);
-  }
-});
+const singleGlassThicknessEl = document.getElementById("singleGlassThickness");
+if (singleGlassThicknessEl) {
+  singleGlassThicknessEl.addEventListener("change", function () {
+    if (this.value) {
+      openGlassTypeModal(this.value);
+    }
+  });
+}
 
 // Glass type modal logic
 function openGlassTypeModal(thickness) {
@@ -2954,10 +2953,15 @@ function handleFileUpload(input, previewId) {
 
 // Corner and hole option functionality
 function toggleSingleHoleOptions() {
-  const selectedHole = document.getElementById("singleHoles").value;
-  const selectedCorner = document.querySelector('input[name="singleCorners"]:checked').value;
-  const customOptions = document.getElementById("singleCustomHoleOptions");
   const holesSelect = document.getElementById("singleHoles");
+  const cornerRadio = document.querySelector('input[name="singleCorners"]:checked');
+  const customOptions = document.getElementById("singleCustomHoleOptions");
+
+  // Bail out if elements don't exist (not on single unit page)
+  if (!holesSelect || !cornerRadio || !customOptions) return;
+
+  const selectedHole = holesSelect.value;
+  const selectedCorner = cornerRadio.value;
 
   // Reset holes select when corner type changes
   if (selectedCorner === 'straight' || selectedCorner === 'dubbed') {
@@ -2979,7 +2983,8 @@ function toggleSingleHoleOptions() {
     customOptions.classList.remove("hidden");
   } else {
     customOptions.classList.add("hidden");
-    document.getElementById("singleCustomHoleSize").value = "";
+    const customHoleSize = document.getElementById("singleCustomHoleSize");
+    if (customHoleSize) customHoleSize.value = "";
   }
 }
 
@@ -3006,7 +3011,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Existing hole option listener
-  document.getElementById("singleHoles").addEventListener("change", toggleSingleHoleOptions);
+  const singleHolesEl = document.getElementById("singleHoles");
+  if (singleHolesEl) {
+    singleHolesEl.addEventListener("change", toggleSingleHoleOptions);
+  }
 });
 
 // ...existing code...
